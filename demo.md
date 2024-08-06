@@ -1,5 +1,6 @@
 import React from 'react';
-import { Table, ITableColumn } from './table'
+import { Table } from 'antd';
+import type { TableColumnsType } from 'antd';
 
 interface DataType {
   key: React.Key;
@@ -8,7 +9,7 @@ interface DataType {
   address: string;
 }
 
-const columns: ITableColumn<DataType>[] = [
+const columns: TableColumnsType<DataType> = [
   {
     title: 'Full Name',
     width: 100,
@@ -66,6 +67,13 @@ const columns: ITableColumn<DataType>[] = [
     width: 150,
   },
   { title: 'Column 8', dataIndex: 'address', key: '8' },
+  {
+    title: 'Action',
+    key: 'operation',
+    fixed: 'right',
+    width: 100,
+    render: () => <a>action</a>,
+  },
 ];
 
 const data: DataType[] = [];
@@ -78,12 +86,8 @@ for (let i = 0; i < 100; i++) {
   });
 }
 
-function App() {
-  return (
-    <div className="App">
-      <Table columns={columns} dataSource={data} pagination={{pageSize: 10}} />
-    </div>
-  );
-}
+const App: React.FC = () => (
+  <Table columns={columns} dataSource={data} scroll={{ x: 1500, y: 300 }} />
+);
 
 export default App;
